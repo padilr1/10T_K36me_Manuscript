@@ -1,0 +1,8 @@
+name: ""
+navbar:
+  title: "10T K36me manuscript"
+  left:
+    - text: "IGR distribution"
+      href: index.html
+    - text: "Gene body distribution"
+      href: distribution_genebody.html

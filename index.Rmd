@@ -1,0 +1,41 @@
+---
+title: ""
+author: ""
+date: ""
+output:
+  html_document:
+    toc: false
+    toc_float: false
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+    smooth_scroll: false
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(reshape2)
+library(tidyverse)
+library(reactable)
+library(data.table)
+```
+
+# K36me distribution IGR {.tabset}
+
+K36me signal is input-normalized and logCPM transformed. <b> IGR = intergenic regions </b> 
+
+## K36me1
+```{r,K36me1_heatmap,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_IGR/K36me1", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+## K36me2
+```{r,K36me2_heatmap,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_IGR/K36me2", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+---
