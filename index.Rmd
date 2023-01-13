@@ -26,6 +26,13 @@ library(data.table)
 
 K36me signal is input-normalized and logCPM transformed. <b> IGR = intergenic regions </b> 
 
+## PA
+```{r,PA,echo = FALSE,fig.show = "hold", out.width = "75%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_IGR", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+
 ## K36me1
 ```{r,K36me1_heatmap,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
 imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_IGR/K36me1", pattern= "*.png", full.names=T)
@@ -35,6 +42,12 @@ include_graphics(imageList,dpi = 600)
 ## K36me2
 ```{r,K36me2_heatmap,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
 imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_IGR/K36me2", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+## K36me3
+```{r,K36me3_heatmap,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_IGR/K36me3", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
 ```
 
