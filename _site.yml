@@ -6,3 +6,4 @@ navbar:
       href: index.html
     - text: "Gene body distribution"
       href: distribution_genebody.html
+output_dir: "docs"
