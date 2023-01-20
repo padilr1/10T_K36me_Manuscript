@@ -4,8 +4,8 @@ author: ""
 date: ""
 output:
   html_document:
-    toc: false
-    toc_float: false
+    toc: true
+    toc_float: true
     collapsed: false
     number_sections: false
     toc_depth: 3
@@ -20,24 +20,45 @@ library(reshape2)
 library(tidyverse)
 library(reactable)
 library(data.table)
+library(ggforce)
 ```
 
-# K36me gene body distribution {.tabset}
+# Input-normalized {.tabset}
 
 ## K36me1
-```{r,K36me1,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
-imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me1", pattern= "*.png", full.names=T)
+```{r,K36me1_input,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/input_normalized/K36me1", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me2
-```{r,K36me2,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
-imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me2", pattern= "*.png", full.names=T)
+```{r,K36me2_input,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/input_normalized/K36me2", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me3
-```{r,K36me3,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
-imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me3", pattern= "*.png", full.names=T)
+```{r,K36me3_input,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/input_normalized/K36me3", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
+```
+
+# CPM-normalized {.tabset}
+
+## K36me1
+```{r,K36me1,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me1", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
+```
+
+## K36me2
+```{r,K36me2,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me2", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
+```
+
+## K36me3
+```{r,K36me3,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me3", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
 ```
