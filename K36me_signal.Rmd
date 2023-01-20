@@ -4,8 +4,8 @@ author: ""
 date: ""
 output:
   html_document:
-    toc: false
-    toc_float: false
+    toc: true
+    toc_float: true
     collapsed: false
     number_sections: false
     toc_depth: 3
@@ -23,12 +23,12 @@ library(data.table)
 library(ggpubr)
 ```
 
-# K36me signal quantification {.tabset}
+# Input-normalized signal {.tabset}
 
 ## K36me1
 ```{r,K36me1,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-# load("")
-# ggarrange(a,b,c,d,labels = c("PA", "NSD1KO", "NSD2KO","NSD3KO"),ncol = 2, nrow = 2)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me1", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me2
@@ -38,7 +38,27 @@ include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me3
-```{r,K36me3,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
-# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me3", pattern= "*.png", full.names=T)
+```{r,K36me3,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me3", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+# CPM-only signal {.tabset}
+
+## K36me1
+```{r,K36me1_cpm,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me1", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
+```
+
+## K36me2
+```{r,K36me2_cpm,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me2", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
+```
+
+## K36me3
+```{r,K36me3_cpm,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me3", pattern= "*.png", full.names=T)
 # include_graphics(imageList,dpi = 600)
 ```
