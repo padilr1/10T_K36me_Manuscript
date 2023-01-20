@@ -1,0 +1,42 @@
+---
+title: ""
+author: ""
+date: ""
+output:
+  html_document:
+    toc: false
+    toc_float: false
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+    smooth_scroll: false
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(reshape2)
+library(tidyverse)
+library(reactable)
+library(data.table)
+library(ggpubr)
+```
+
+# K36me promoter-centric distribution {.tabset}
+
+## K36me1
+```{r,K36me1,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+```
+
+## K36me2
+```{r,K36me2,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me2", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
+```
+
+## K36me3
+```{r,K36me3,echo = FALSE,fig.show = "hold", out.width = "50%", fig.align = "default"}
+# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/distribution_genebody/K36me3", pattern= "*.png", full.names=T)
+# include_graphics(imageList,dpi = 600)
+```

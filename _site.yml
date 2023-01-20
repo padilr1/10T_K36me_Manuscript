@@ -4,6 +4,10 @@ navbar:
   left:
     - text: "IGR distribution"
       href: index.html
-    - text: "Gene body distribution"
+    - text: "Gene-centric distribution"
       href: distribution_genebody.html
+    - text: "Promoter-centric distribution"
+      href: distribution.promoter_centric.html
+    - text: "K36me signal quantification"
+      href: K36me_signal.html
 output_dir: "docs"
