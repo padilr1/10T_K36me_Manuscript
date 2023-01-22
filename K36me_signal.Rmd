@@ -23,42 +23,42 @@ library(data.table)
 library(ggpubr)
 ```
 
-# Input-normalized signal {.tabset}
+# Input-normalized {.tabset}
 
 ## K36me1
 ```{r,K36me1,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me1", pattern= "*.png", full.names=T)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/input_normalized/K36me1", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me2
 ```{r,K36me2,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me2", pattern= "*.png", full.names=T)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/input_normalized/K36me2", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me3
 ```{r,K36me3,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me3", pattern= "*.png", full.names=T)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/input_normalized/K36me3", pattern= "*.png", full.names=T)
 include_graphics(imageList,dpi = 600)
 ```
 
-# CPM-only signal {.tabset}
+# CPM-normalized {.tabset}
 
 ## K36me1
 ```{r,K36me1_cpm,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me1", pattern= "*.png", full.names=T)
-# include_graphics(imageList,dpi = 600)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/cpm/K36me1", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me2
 ```{r,K36me2_cpm,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me2", pattern= "*.png", full.names=T)
-# include_graphics(imageList,dpi = 600)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/cpm/K36me2", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
 ```
 
 ## K36me3
 ```{r,K36me3_cpm,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
-# imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/K36me3", pattern= "*.png", full.names=T)
-# include_graphics(imageList,dpi = 600)
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/K36me_signal/cpm/K36me3", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
 ```
