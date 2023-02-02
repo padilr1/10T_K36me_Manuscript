@@ -10,4 +10,6 @@ navbar:
       href: distribution.promoter_centric.html
     - text: "K36me signal quantification"
       href: K36me_signal.html
+    - text: "Residual K36me2"
+      href: Residual_K36me2.html
 output_dir: "docs"

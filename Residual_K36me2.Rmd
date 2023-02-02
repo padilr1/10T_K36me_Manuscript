@@ -1,0 +1,208 @@
+---
+title: ""
+author: ""
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+    smooth_scroll: false
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(data.table)
+library(ggplot2)
+library(rtracklayer)
+library(knitr)
+#
+library(TxDb.Mmusculus.UCSC.mm10.knownGene)
+library(org.Mm.eg.db)
+library(ChIPseeker)
+#
+txdb <- TxDb.Mmusculus.UCSC.mm10.knownGene
+#
+options(ChIPseeker.ignore_1st_exon = TRUE)
+options(ChIPseeker.ignore_1st_intron = TRUE)
+options(ChIPseeker.ignore_downstream = TRUE)
+options(ChIPseeker.ignore_promoter_subcategory = TRUE)
+#
+library(pacman)
+pacman::p_load(argparse,tidyverse,rtracklayer,GenomicRanges,LOLA,highcharter)
+#
+signif.num <- function(x) {
+  symnum(x, corr = FALSE, na = FALSE, legend = FALSE,
+         cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, 1), 
+         symbols = c("****", "***", "**", "*", "ns"))
+}
+```
+
+# TKO vs QKO {.tabset}
+
+## Scatterplot {.tabset}
+
+### Removing cluster of bins at 0
+
+Removing the cluster where K36me2 is 0 for both conditions does not result in any viable clusters.
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/TKO.NSD3.K36me2/removed_cluster_zero", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+### Subsetting bins 
+
+Instead, we can focus on bins that pass a specific threshold. These bins would be located within the red box below, indicating K36me2 deposited by NSD3 that is lost in QKO.
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/TKO.NSD3.K36me2", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+## Distribution
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("~/Documents/10T_K36me_Manuscript/images/TKO.NSD3.K36me2/distribution", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+## Enrichment analysis {.tabset}
+
+### Complete
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+#
+load(file="~/Documents/10T_K36me_Manuscript/data/Residual_K36me2/enrichment_plots/NSD3_deposited_K36me2.whole.TKO.RData")
+#
+res %>% mutate(reg = sub('.bed', '', filename),
+                        sig = as.character(signif.num(qValue)),
+                        q = case_when(qValue > 0 ~ qValue, T ~ min(qValue[qValue > 0])),
+                        q = -log10(q),
+                    info = sprintf('Odds ratio: %.3g <br>FDR: %.3g<br>Overlap: %d<br>|Annotation|: %d', oddsRatio, qValue, support, size),
+                        oddsRatio = case_when(oddsRatio > 0 ~ oddsRatio, T ~ min(oddsRatio[oddsRatio > 0]))) %>%
+  hchart('scatter', hcaes(x = oddsRatio, y = q, size = support,
+                          group = reg), maxSize = '10%') %>%
+  hc_xAxis( title = list(text = 'Odds ratio'), type = 'logarithmic') %>%
+  hc_yAxis(title = list(text = '-log10(padj)')) %>%
+  hc_tooltip(pointFormatter = JS("function() {
+      return this.options.info;
+  }")) %>%
+  hc_chart(zoomType = 'xy')
+#
+```
+
+### Genic
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+#
+load(file="~/Documents/10T_K36me_Manuscript/data/Residual_K36me2/enrichment_plots/NSD3_deposited_K36me2.genic.TKO.RData")
+#
+res %>% mutate(reg = sub('.bed', '', filename),
+                        sig = as.character(signif.num(qValue)),
+                        q = case_when(qValue > 0 ~ qValue, T ~ min(qValue[qValue > 0])),
+                        q = -log10(q),
+                    info = sprintf('Odds ratio: %.3g <br>FDR: %.3g<br>Overlap: %d<br>|Annotation|: %d', oddsRatio, qValue, support, size),
+                        oddsRatio = case_when(oddsRatio > 0 ~ oddsRatio, T ~ min(oddsRatio[oddsRatio > 0]))) %>%
+  hchart('scatter', hcaes(x = oddsRatio, y = q, size = support,
+                          group = reg), maxSize = '10%') %>%
+  hc_xAxis( title = list(text = 'Odds ratio'), type = 'logarithmic') %>%
+  hc_yAxis(title = list(text = '-log10(padj)')) %>%
+  hc_tooltip(pointFormatter = JS("function() {
+      return this.options.info;
+  }")) %>%
+  hc_chart(zoomType = 'xy')
+#
+```
+
+### Intergenic
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+#
+load(file="~/Documents/10T_K36me_Manuscript/data/Residual_K36me2/enrichment_plots/NSD3_deposited_K36me2.igr.TKO.RData")
+#
+res %>% mutate(reg = sub('.bed', '', filename),
+                        sig = as.character(signif.num(qValue)),
+                        q = case_when(qValue > 0 ~ qValue, T ~ min(qValue[qValue > 0])),
+                        q = -log10(q),
+                    info = sprintf('Odds ratio: %.3g <br>FDR: %.3g<br>Overlap: %d<br>|Annotation|: %d', oddsRatio, qValue, support, size),
+                        oddsRatio = case_when(oddsRatio > 0 ~ oddsRatio, T ~ min(oddsRatio[oddsRatio > 0]))) %>%
+  hchart('scatter', hcaes(x = oddsRatio, y = q, size = support,
+                          group = reg), maxSize = '10%') %>%
+  hc_xAxis( title = list(text = 'Odds ratio'), type = 'logarithmic') %>%
+  hc_yAxis(title = list(text = '-log10(padj)')) %>%
+  hc_tooltip(pointFormatter = JS("function() {
+      return this.options.info;
+  }")) %>%
+  hc_chart(zoomType = 'xy')
+#
+```
+
+---
+
+## Depletion analysis {.tabset}
+
+### Complete
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+#
+load(file="~/Documents/10T_K36me_Manuscript/data/Residual_K36me2/enrichment_plots/NSD3_deposited_K36me2.depleted.whole.TKO.RData")
+#
+res.dep %>% mutate(reg = sub('.bed', '', filename),
+                        sig = as.character(signif.num(qValue)),
+                        q = case_when(qValue > 0 ~ qValue, T ~ min(qValue[qValue > 0])),
+                        q = -log10(q),
+                    info = sprintf('Odds ratio: %.3g <br>FDR: %.3g<br>Overlap: %d<br>|Annotation|: %d', oddsRatio, qValue, support, size),
+                        oddsRatio = case_when(oddsRatio > 0 ~ oddsRatio, T ~ min(oddsRatio[oddsRatio > 0]))) %>%
+  hchart('scatter', hcaes(x = oddsRatio, y = q, size = support,
+                          group = reg), maxSize = '10%') %>%
+  hc_xAxis( title = list(text = 'Odds ratio'), type = 'logarithmic') %>%
+  hc_yAxis(title = list(text = '-log10(padj)')) %>%
+  hc_tooltip(pointFormatter = JS("function() {
+      return this.options.info;
+  }")) %>%
+  hc_chart(zoomType = 'xy')
+#
+```
+
+### Genic
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+#
+load(file="~/Documents/10T_K36me_Manuscript/data/Residual_K36me2/enrichment_plots/NSD3_deposited_K36me2.depleted.genic.TKO.RData")
+#
+res.dep %>% mutate(reg = sub('.bed', '', filename),
+                        sig = as.character(signif.num(qValue)),
+                        q = case_when(qValue > 0 ~ qValue, T ~ min(qValue[qValue > 0])),
+                        q = -log10(q),
+                    info = sprintf('Odds ratio: %.3g <br>FDR: %.3g<br>Overlap: %d<br>|Annotation|: %d', oddsRatio, qValue, support, size),
+                        oddsRatio = case_when(oddsRatio > 0 ~ oddsRatio, T ~ min(oddsRatio[oddsRatio > 0]))) %>%
+  hchart('scatter', hcaes(x = oddsRatio, y = q, size = support,
+                          group = reg), maxSize = '10%') %>%
+  hc_xAxis( title = list(text = 'Odds ratio'), type = 'logarithmic') %>%
+  hc_yAxis(title = list(text = '-log10(padj)')) %>%
+  hc_tooltip(pointFormatter = JS("function() {
+      return this.options.info;
+  }")) %>%
+  hc_chart(zoomType = 'xy')
+#
+```
+
+### Intergenic
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+#
+load(file="~/Documents/10T_K36me_Manuscript/data/Residual_K36me2/enrichment_plots/NSD3_deposited_K36me2.depleted.igr.TKO.RData")
+#
+res.dep %>% mutate(reg = sub('.bed', '', filename),
+                        sig = as.character(signif.num(qValue)),
+                        q = case_when(qValue > 0 ~ qValue, T ~ min(qValue[qValue > 0])),
+                        q = -log10(q),
+                    info = sprintf('Odds ratio: %.3g <br>FDR: %.3g<br>Overlap: %d<br>|Annotation|: %d', oddsRatio, qValue, support, size),
+                        oddsRatio = case_when(oddsRatio > 0 ~ oddsRatio, T ~ min(oddsRatio[oddsRatio > 0]))) %>%
+  hchart('scatter', hcaes(x = oddsRatio, y = q, size = support,
+                          group = reg), maxSize = '10%') %>%
+  hc_xAxis( title = list(text = 'Odds ratio'), type = 'logarithmic') %>%
+  hc_yAxis(title = list(text = '-log10(padj)')) %>%
+  hc_tooltip(pointFormatter = JS("function() {
+      return this.options.info;
+  }")) %>%
+  hc_chart(zoomType = 'xy')
+#
+```
