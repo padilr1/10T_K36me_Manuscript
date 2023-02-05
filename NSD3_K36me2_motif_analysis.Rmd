@@ -1,0 +1,91 @@
+---
+title: ""
+author: ""
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 3
+    smooth_scroll: false
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(data.table)
+library(tidyverse)
+#
+library(DT)
+library(base64enc)
+#
+library(webshot)
+```
+
+# Scatterplot at 1kb bins {.tabset}
+
+Within the red box below, 44782 bins were found. These bins are designated as NSD3-deposited K36me2, when comparing TKO to QKO.
+
+```{r,echo = FALSE,fig.show = "hold", out.width = "100%", fig.align = "default"}
+imageList <- list.files("/Users/padilr1/Documents/10T_K36me_Manuscript/images/TKO.NSD3.K36me2/1kb_bins", pattern= "*.png", full.names=T)
+include_graphics(imageList,dpi = 600)
+```
+
+# Motif results
+
+The 44782 bins were inputted into HOMER for motif analysis. The background used was the pooled 1kb bins from TKO and QKO_c1. The results can be accessed [here](dtable.html)
+
+```{r fig1,echo = FALSE, include=TRUE,eval=FALSE}
+# f <- fread("~/Documents/10T_K36me_Manuscript/data/motifs/NSD3_deposited_K36me2_TKO/bg_TKO_QKO/knownResults.txt") %>%
+#   dplyr::slice(1:50)
+# #
+# imgs <- c(sprintf("~/Documents/10T_K36me_Manuscript/data/motifs/NSD3_deposited_K36me2_TKO/bg_TKO_QKO/known%s.logo.png",1:50))
+# b64imgs <- vapply(imgs, function(img){
+#   dataURI(mime = "~/Documents/10T_K36me_Manuscript/data/motifs/NSD3_deposited_K36me2_TKO/bg_TKO_QKO", file = img)
+# }, character(1L))
+# b64array <- paste0(
+#   c("[", sprintf("%s", toString(paste0("'", b64imgs, "'"))), "]"),
+#   collapse = ""
+# )
+# 
+# render <- c(
+#   "function(data, type, row){",
+#   "  if(type === 'display'){",
+#   sprintf("var img = %s[data-1];", b64array),
+#   "    data = '<img src=\"' + img + '\"  width=200>';",
+#   "  }",
+#   "  return data;",
+#   "}"
+# )
+# 
+# dat <- data.frame(
+#   Motif = c(1:50)
+# )
+# 
+# dat <- cbind(dat,f)
+# 
+# # f$motif <- imgs
+# 
+# dat <- dat %>%
+#   dplyr::select(-c(`Log P-value`)) %>%
+#   dplyr::select(-c(Consensus))
+# 
+# dtable <- datatable(
+#   dat,
+#   width = 500,
+#   options = list(
+#     columnDefs = list(
+#       list(targets = 1, render = JS(render)),
+#       list(targets = "_all", className = "dt-center")
+#     )
+#   )
+# )
+# #
+# html <- "dtable.html"
+# saveWidget(dtable,html)
+# webshot(html, "dtableSnapshot.png")
+# ~/Documents/10T_K36me2/work/10kb_bin.analysis/dtable.html
+```

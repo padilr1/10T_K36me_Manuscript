@@ -12,4 +12,8 @@ navbar:
       href: K36me_signal.html
     - text: "Residual K36me2"
       href: Residual_K36me2.html
+    - text: "Motif analysis"
+      href: NSD3_K36me2_motif_analysis.html
+    - text: ""
+      href: dtable.html
 output_dir: "docs"

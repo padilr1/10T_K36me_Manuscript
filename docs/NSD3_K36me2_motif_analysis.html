@@ -12,7 +12,7 @@
 <meta name="author" content="" />
 
 
-<title>index.knit</title>
+<title>NSD3_K36me2_motif_analysis.knit</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,6 +30,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -220,6 +223,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -227,6 +293,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -280,31 +356,23 @@ $(document).ready(function () {
 </div>
 
 
-<div id="k36me-distribution-igr" class="section level1 tabset">
-<h1 class="tabset">K36me distribution IGR</h1>
-<p>K36me signal is input-normalized and logCPM transformed. <b> IGR =
-intergenic regions </b></p>
-<div id="pa" class="section level2">
-<h2>PA</h2>
-<p><img src="images/distribution_IGR/IGR.K36me.PA.distribution.heatmap.input_norm.all.png" width="75%" /></p>
+<div id="scatterplot-at-1kb-bins" class="section level1 tabset">
+<h1 class="tabset">Scatterplot at 1kb bins</h1>
+<p>Within the red box below, 44782 bins were found. These bins are
+designated as NSD3-deposited K36me2, when comparing TKO to QKO.</p>
+<p><img src="images/TKO.NSD3.K36me2/1kb_bins/Screenshot%202023-02-05%20at%202.47.51%20PM.png" width="100%" /></p>
 </div>
-<div id="k36me1" class="section level2">
-<h2>K36me1</h2>
-<p><img src="images/distribution_IGR/K36me1/IGR.K36me1.distribution.heatmap.input_norm.all.png" width="50%" /></p>
-</div>
-<div id="k36me2" class="section level2">
-<h2>K36me2</h2>
-<p><img src="images/distribution_IGR/K36me2/Input_norm.20kb.IGR.png" width="100%" /></p>
-</div>
-<div id="k36me3" class="section level2">
-<h2>K36me3</h2>
-<p><img src="images/distribution_IGR/K36me3/IGR.K36me3.distribution.heatmap.input_norm.all.png" width="100%" /></p>
-<hr />
-</div>
+<div id="motif-results" class="section level1">
+<h1>Motif results</h1>
+<p>The 44782 bins were inputted into HOMER for motif analysis. The
+background used was the pooled 1kb bins from TKO and QKO_c1. The results
+can be accessed <a href="dtable.html">here</a></p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -337,6 +405,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
